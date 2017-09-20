@@ -6,7 +6,7 @@ from stream_reader import StreamReader
 TOPIC = "test"
 HOST = "streamanalytics.cloudapp.net:9092"
 
-def start_broadcasting(num_of_messages, interval):
+def start_dispatching(num_of_messages, interval):
     DATASET = edgar.DATASET.head(num_of_messages)
     WRITER = StreamWriter(HOST)
 

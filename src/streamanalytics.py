@@ -11,16 +11,16 @@ def add_modules():
 def __messagehandler__(message):
     print message
 
-def start_broadcasting_service():
+def start_dispatcher_service():
     import datastream
-    datastream.start_broadcasting(5, 2)
+    datastream.start_dispatching(5, 2)
 
-def start_listening_service():
+def start_listener_service():
     import datastream
     datastream.start_listening(__messagehandler__)
 
-SERVICES = {"broadcast-service": start_broadcasting_service,
-            "listener-service": start_listening_service}
+SERVICES = {"dispatcher": start_dispatcher_service,
+            "listener": start_listener_service}
 
 def main(argv):
     srv = None

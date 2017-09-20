@@ -7,13 +7,24 @@ import numpy as np
 from pandas import DataFrame
 
 class FeatureWeight(object):
+    '''
+    This class is used for finding frequency based weight scores of feature in a dataset
+    '''
     def __init__(self, data, numeric_bins):
         if not isinstance(data, DataFrame):
             raise ValueError("data should be of dataframe type")
         self.__data__ = data
         self.__bins__ = numeric_bins
 
-    def frequencies(self, reversed=False):
+    def frequencies(self):
+        '''
+        Finds frequencies of features in the dataset.
+
+        Returns:
+            returns (dict)
+                    keys    : feature name
+                    values  : tuple (frequency, distinct value)
+        '''
         feature_frequencies = {}
         for column in self.__data__.columns:
             if self.__bins__ is not None and column in self.__bins__:
@@ -24,6 +35,16 @@ class FeatureWeight(object):
         return feature_frequencies
 
     def scores(self, frequencies):
+        ''' calculates weight score for each feature
+
+        Args:
+            frequencies (dict) : return value of frequencies function
+
+        Returns:
+            returns (dict)
+                    keys   : feature name
+                    values : weight score
+        '''
         scores_ = {}      
         for f in frequencies:
             fs = frequencies[f]
@@ -56,10 +77,15 @@ class FeatureWeight(object):
             frequencies.append((frq, value))
         return frequencies
 
-from datasets.edgar import edgar
-import matplotlib.pyplot as plt
 
-ds = edgar.DATASET.head(100)
+# FUNCTIONALITY TEST
+# from datasets.edgar import edgar
+from datasets.stanmore import stanmore
+import matplotlib.pyplot as plt
+import operator
+
+# ds = edgar.DATASET.head(100)
+ds = stanmore.DATASET
 
 def plot_weight(weights, feature):
     wg = weights[feature]
@@ -77,12 +103,32 @@ def plot_weight(weights, feature):
     plt.title("".join([feature, " weights"]))
     plt.show()
 
-fw = FeatureWeight(ds, {"noagent":5, "find":5, "crawler":10})
-# plot_weight(fw.frequencies(), "ip")
-freqs = fw.frequencies()
+def test_frequencies():
+    fw = FeatureWeight(ds, {"bytes":10})
+    print fw.frequencies()
 
-# print freqs
-# print fw.scores(freqs)
+def test_frequencies_by_feature(feature):
+    fw = FeatureWeight(ds, {"bytes":10})
+    print fw.frequencies()[feature]
 
-print freqs["ip"]
-print fw.scores(freqs)["ip"]
+def test_scores():
+    fw = FeatureWeight(ds, {"bytes":10})
+    print fw.scores(fw.frequencies())
+
+def test_scores_by_feature(feature):
+    fw = FeatureWeight(ds, {"bytes":10})
+    print fw.scores(fw.frequencies())[feature]
+
+def plot_scores():
+    fw = FeatureWeight(ds, {"bytes":10})
+    scores = fw.scores(fw.frequencies())
+    sorted_scores = sorted(scores.items(), key=operator.itemgetter(1), reverse=True)
+    zipped_scores = zip(*sorted_scores)
+    features = zipped_scores[0]
+    values = zipped_scores[1]
+    n_features = range(1, len(features) + 1)
+    plt.bar(n_features, values, width=0.8, color="b", align="center")
+    plt.xticks(n_features, features)
+    plt.show()
+
+plot_scores()
