@@ -1,3 +1,14 @@
+# References
+
+  * [One-Class SVM with Relative Comparisons](https://drive.google.com/open?id=0B7nXQPitZPZia3hIRVY0bE1EaXM)
+  * [One-Class SVM for Classification Bioacoustic Time Series](https://drive.google.com/open?id=0B7nXQPitZPZiM3FveWFOTldNOGs)
+  * [Feature Selection Algorithms for Accuracy Estimation](https://drive.google.com/open?id=0B7nXQPitZPZieTFONm5BNUhOMEU)
+  * [Log Analytics With Deep Learning And Machine Learning](https://drive.google.com/open?id=0B7nXQPitZPZiemZMQldxanQ0YTg)
+  * [One-Class SVM for Document Classification](https://drive.google.com/open?id=0B7nXQPitZPZiYkhiMU5Gb3lkOEk)
+  * [One-Class SVM for Unsupervised Anomaly Detection](https://drive.google.com/open?id=0B7nXQPitZPZiMnZseDB2aVh3TjQ)
+  * [Unsupervised Anomaly Detection in High Dimensions](https://drive.google.com/open?id=0B7nXQPitZPZiWnFHcFhuQUtQYUU)
+  * [Log File Anomaly Detection](https://drive.google.com/open?id=0B7nXQPitZPZiOUlfN1E4dnY1MlU)
+
 # Papers
 
 ### Anomaly Detection
